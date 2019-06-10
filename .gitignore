@@ -5,3 +5,4 @@ src/meshCNN_utils/**
 src/old/**
 src/.DS_Store
 src/.vscode/settings.json
+*.pyc
