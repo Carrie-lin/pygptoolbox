@@ -39,7 +39,7 @@ def cotmatrix(V,F):
         angles[:,i1] = np.arccos(dotProd)
 
     # compute cotan laplace
-    L = sparse.lil_matrix((numVert,numVert), dtype=np.float32)
+    L = sparse.lil_matrix((numVert,numVert), dtype=np.float64)
     for i in range(3):
         i1 = (i  ) % 3
         i2 = (i+1) % 3
@@ -48,4 +48,4 @@ def cotmatrix(V,F):
     L = (L + L.transpose()) / 2
     temp = np.array(L.sum(axis=1)).reshape((numVert))
     L -= sparse.diags(temp)
-    return -L.tocsc()
+    return -L.tocsr()
