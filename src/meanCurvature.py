@@ -1,23 +1,19 @@
-import numpy as np 
-from cotmatrix import *
-from vertexAreas import *
+import numpy as np
+import scipy
+import scipy.sparse 
+from meanCurvatureNormals import meanCurvatureNormals
 
-def meanCurvature(V,F):
-	'''
-	MEANCURVATURE  computes the mean curvature of a triangle mesh
+def meanCurvature(V, F):
+    """
+    MEANCURVATURE computes the mean curvature normal 
 
-	Inputs:
-    V: |V|-by-3 numpy ndarray of vertex positions
-    F: |F|-by-3 numpy ndarray of face indices
-
+    Input:
+        V (|V|,3) numpy array of vertex positions
+        F (|F|,3) numpy array of face indices
     Output:
-    H: |V| numpy array of mean curvature at each vertex
-	'''
-	L = cotmatrix(V,F)
-	VA = vertexAreas(V, F)
-	inv_M = scipy.sparse.csr_matrix(np.diag(1/(VA+np.finfo(float).eps)))
-	L = inv_M * L
-	H = np.sqrt(np.sum((-L*V)**2, axis=1)) / 2.0
-	return H
-
-
+        HN (|V|,3) numpy array of mean curvature normal vector
+    """
+    HN = meanCurvatureNormals(V,F)
+    H = 0.5*np.sqrt(np.sum(HN**2,1))
+    return H
+    

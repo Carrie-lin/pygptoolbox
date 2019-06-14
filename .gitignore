@@ -2,6 +2,7 @@ meshes/**
 images/**
 src/todo/**
 src/meshCNN_utils/**
+src/pytorch_utils/**
 src/old/**
 src/.DS_Store
 src/.vscode/settings.json
