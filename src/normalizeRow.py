@@ -10,5 +10,5 @@ def normalizeRow(X):
 	  X_normalized: n-by-m row normalized np array
 	"""
 	l2Norm = np.sqrt((X * X).sum(axis=1))
-	X_normalized = X / l2Norm.reshape(X.shape[0],1)
+	X_normalized = X / (l2Norm.reshape(X.shape[0],1)+1e-7)
 	return X_normalized

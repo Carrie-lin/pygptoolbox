@@ -1,7 +1,7 @@
 import numpy as np
 from colorMap import colorMap
 
-def writePLY(fileName,V,F,VC = None, colormap = 'default'):
+def writePLY(fileName,V,F,VC = None, colormap = 'default', valRange = None):
     f = open(fileName, 'w')
 
     # headers
@@ -14,7 +14,7 @@ def writePLY(fileName,V,F,VC = None, colormap = 'default'):
 
     # color map
     if (VC is not None and VC.shape[0] == V.shape[0]):
-        color = colorMap(VC, colormap = colormap)
+        color = colorMap(VC, colormap = colormap, valRange=valRange)
         color = (color*255).astype(np.uint8)
         string = string + 'property uchar red\n'
         string = string + 'property uchar green\n'
