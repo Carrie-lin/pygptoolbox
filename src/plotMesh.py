@@ -9,7 +9,16 @@ def plotMesh(V,F, \
     c=np.array([0]),\
     colormap='default',\
     showEdges=False):
-    
+    """
+    PLOTMESH plot a triangle mesh
+
+    Input:
+      V (|V|,3) numpy array of vertex positions
+	  F (|F|,3) numpy array of face indices
+      c (|V|,) vertex color values
+    Output:
+      None
+    """
     # compute colors for rendering
     FN = faceNormals(V,F)
     z = (FN[:,2] + 2) / 3
@@ -42,9 +51,10 @@ def plotMesh(V,F, \
     ax.add_collection3d(mesh)
 
     # set figure axis 
-    axisRange = np.array([np.max(V[:,0])-np.min(V[:,0]), np.max(V[:,1])-np.min(V[:,1]), np.max(V[:,2])-np.min(V[:,2])])
+    actV = np.unique(F.flatten())
+    axisRange = np.array([np.max(V[actV,0])-np.min(V[actV,0]), np.max(V[actV,1])-np.min(V[actV,1]), np.max(V[actV,2])-np.min(V[actV,2])])
     r = np.max(axisRange) / 2.0
-    mean = np.mean(V, 0)
+    mean = np.mean(V[actV,:], 0)
     ax.set_xlim(mean[0]-r, mean[0]+r)
     ax.set_ylim(mean[1]-r, mean[1]+r)
     ax.set_zlim(mean[2]-r, mean[2]+r)
